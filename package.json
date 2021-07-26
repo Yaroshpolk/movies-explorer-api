@@ -1,0 +1,30 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Api for movies explorer",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yaroshpolk/movies-explorer-api.git"
+  },
+  "author": "Yaroshevich Vladislav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yaroshpolk/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Yaroshpolk/movies-explorer-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12"
+  }
+}
