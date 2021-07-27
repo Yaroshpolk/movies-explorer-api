@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-const { mongoLink } = require('utils/constants');
+const NotFoundErr = require('./errors/not-found-err');
+const ServerErr = require('./middlewares/server-err');
+const { mongoLink } = require('./utils/constants');
 
 const {PORT = 3000} = process.env;
 const app = express();
@@ -18,7 +19,12 @@ mongoose.connect(mongoLink, {
 });
 
 
+app.use('/', () => {
+  throw new NotFoundErr('Запрашиваемый ресурс не найден')
+});
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-})
+app.use((err, req, res, next) => ServerErr(err, req, res, next));
+
+app.listen(PORT,() => {
+  console.log(`Server started with listening port ${PORT}`);
+});
