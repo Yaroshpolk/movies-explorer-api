@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const NotFoundErr = require('./errors/not-found-err');
 const ServerErr = require('./middlewares/server-err');
 const { mongoLink } = require('./utils/constants');
+const usersRouter = require('./routes/users');
 
 const {PORT = 3000} = process.env;
 const app = express();
@@ -18,6 +19,7 @@ mongoose.connect(mongoLink, {
   useUnifiedTopology: true,
 });
 
+app.use('/users', usersRouter);
 
 app.use('/', () => {
   throw new NotFoundErr('Запрашиваемый ресурс не найден')
