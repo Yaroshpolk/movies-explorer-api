@@ -5,6 +5,8 @@ const NotFoundErr = require('./errors/not-found-err');
 const ServerErr = require('./middlewares/server-err');
 const { mongoLink } = require('./utils/constants');
 const usersRouter = require('./routes/users');
+const moviesRouter = require('./routes/movies');
+const { createUser } = require('./controllers/users');
 
 const {PORT = 3000} = process.env;
 const app = express();
@@ -17,9 +19,13 @@ mongoose.connect(mongoLink, {
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-});
+})
+
+app.post('/signup', createUser);
 
 app.use('/users', usersRouter);
+
+app.use('/movies', moviesRouter);
 
 app.use('/', () => {
   throw new NotFoundErr('Запрашиваемый ресурс не найден')
