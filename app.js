@@ -6,7 +6,10 @@ const ServerErr = require('./middlewares/server-err');
 const { mongoLink } = require('./utils/constants');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
-const { createUser } = require('./controllers/users');
+const { createUser, login } = require('./controllers/users');
+const auth = require('./middlewares/auth');
+
+require('dotenv').config();
 
 const {PORT = 3000} = process.env;
 const app = express();
@@ -23,9 +26,11 @@ mongoose.connect(mongoLink, {
 
 app.post('/signup', createUser);
 
-app.use('/users', usersRouter);
+app.post('/signin', login)
 
-app.use('/movies', moviesRouter);
+app.use('/users', auth, usersRouter);
+
+app.use('/movies', auth, moviesRouter);
 
 app.use('/', () => {
   throw new NotFoundErr('Запрашиваемый ресурс не найден')
