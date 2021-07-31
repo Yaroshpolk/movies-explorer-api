@@ -7,6 +7,7 @@ const { mongoLink } = require('./utils/constants');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 const { createUser, login } = require('./controllers/users');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 
 require('dotenv').config();
@@ -24,6 +25,8 @@ mongoose.connect(mongoLink, {
   useUnifiedTopology: true,
 })
 
+app.use(requestLogger);
+
 app.post('/signup', createUser);
 
 app.post('/signin', login)
@@ -31,6 +34,8 @@ app.post('/signin', login)
 app.use('/users', auth, usersRouter);
 
 app.use('/movies', auth, moviesRouter);
+
+app.use(errorLogger);
 
 app.use('/', () => {
   throw new NotFoundErr('Запрашиваемый ресурс не найден')
