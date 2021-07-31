@@ -1,6 +1,6 @@
 const allowedOrigins = [
-  'https://yar.mesto.nomoredomains.rocks',
-  'http://yar.mesto.nomoredomains.rocks',
+  'https://yar.movies.nomoredomains.monster',
+  'http://yar.movies.nomoredomains.monster',
 ];
 const ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS';
 
