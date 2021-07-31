@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const { celebrate, Joi, errors } = require('celebrate');
 const NotFoundErr = require('./errors/not-found-err');
 const ServerErr = require('./middlewares/server-err');
 const { mongoLink } = require('./utils/constants');
@@ -11,11 +12,10 @@ const { createUser, login } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
-const { celebrate, Joi, errors } = require('celebrate');
 
 require('dotenv').config();
 
-const {PORT = 3000, NODE_ENV, CURR_URL} = process.env;
+const { PORT = 3000, NODE_ENV, CURR_URL } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -27,7 +27,7 @@ mongoose.connect(NODE_ENV === 'production' ? CURR_URL : mongoLink, {
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-})
+});
 
 app.use(cors);
 app.use(requestLogger);
@@ -37,7 +37,7 @@ app.post('/signup',
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(20),
       email: Joi.string().required().email(),
-      password: Joi.string().required().min(8)
+      password: Joi.string().required().min(8),
     }).unknown(true),
   }),
   createUser);
@@ -46,7 +46,7 @@ app.post('/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
-      password: Joi.string().required().min(8)
+      password: Joi.string().required().min(8),
     }),
   }),
   login);
@@ -60,7 +60,7 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use('/', () => {
-  throw new NotFoundErr('Запрашиваемый ресурс не найден')
+  throw new NotFoundErr('Запрашиваемый ресурс не найден');
 });
 
 app.use((err, req, res, next) => ServerErr(err, req, res, next));
