@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const { errors } = require('celebrate');
 const ServerErr = require('./middlewares/server-err');
 const { mongoLink } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
-const { errors } = require('celebrate');
 const router = require('./routes/index');
 
 require('dotenv').config();
@@ -28,7 +28,7 @@ mongoose.connect(NODE_ENV === 'production' ? CURR_URL : mongoLink, {
 app.use(cors);
 app.use(requestLogger);
 
-app.use('/', router)
+app.use('/', router);
 
 app.use(errorLogger);
 

@@ -1,11 +1,10 @@
 const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
 const auth = require('../middlewares/auth');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { createUser, login } = require('../controllers/users');
-const { celebrate, Joi } = require('celebrate');
 const NotFoundErr = require('../errors/not-found-err');
-
 
 router.post('/signup',
   celebrate({
