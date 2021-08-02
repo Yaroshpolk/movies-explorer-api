@@ -51,7 +51,7 @@ module.exports.createMovie = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new ValidationError('Ошибка валидации данных при создании фильма');
       }
-      return next(err);
+      next(err);
     })
     .catch(next);
 };

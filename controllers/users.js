@@ -43,6 +43,10 @@ module.exports.updateUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new ValidationError('Переданы некорректные данные при обновлении профиля');
       }
+      if (err.name === 'MongoError' && err.code === 11000) {
+        throw new DuplicateError('Пользователь с указанным email уже зарегистрирован');
+      }
+      next(err);
     })
     .catch(next);
 };
@@ -65,6 +69,7 @@ module.exports.createUser = (req, res, next) => {
           if (err.name === 'MongoError' && err.code === 11000) {
             throw new DuplicateError('Пользователь с указанным email уже зарегистрирован');
           }
+          next(err);
         })
         .catch(next);
     });
