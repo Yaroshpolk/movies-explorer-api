@@ -18,7 +18,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(rateLimiter);
 
 mongoose.connect(NODE_ENV === 'production' ? CURR_URL : mongoLink, {
   useNewUrlParser: true,
@@ -29,6 +28,7 @@ mongoose.connect(NODE_ENV === 'production' ? CURR_URL : mongoLink, {
 
 app.use(cors);
 app.use(requestLogger);
+app.use(rateLimiter);
 
 app.use('/', router);
 
