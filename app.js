@@ -8,7 +8,7 @@ const { mongoLink } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const router = require('./routes/index');
-const {rateLimiter} = require('./middlewares/rateLimiter');
+const { rateLimiter } = require('./middlewares/rateLimiter');
 
 require('dotenv').config();
 

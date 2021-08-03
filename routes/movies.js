@@ -1,6 +1,6 @@
 const moviesRouter = require('express').Router();
-const { deleteMovie, createMovie, getSavedMovies } = require('../controllers/movies');
 const { celebrate, Joi } = require('celebrate');
+const { deleteMovie, createMovie, getSavedMovies } = require('../controllers/movies');
 const urlValidator = require('../middlewares/urlValidator');
 
 moviesRouter.get('/', getSavedMovies);
@@ -19,14 +19,14 @@ moviesRouter.post('/',
       year: Joi.string().min(4).max(4).required(),
       description: Joi.string().required(),
       movieId: Joi.string().min(1).required(),
-    })
+    }),
   }),
   createMovie);
 
 moviesRouter.delete('/:movieId',
   celebrate({
-  params: Joi.object().keys({
-    movieId: Joi.string().length(24).hex(),
+    params: Joi.object().keys({
+      movieId: Joi.string().length(24).hex(),
     }),
   }),
   deleteMovie);
