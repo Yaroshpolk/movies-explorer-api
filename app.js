@@ -8,6 +8,7 @@ const { mongoLink } = require('./utils/constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const router = require('./routes/index');
+const {rateLimiter} = require('./middlewares/rateLimiter');
 
 require('dotenv').config();
 
@@ -17,6 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
+app.use(rateLimiter);
 
 mongoose.connect(NODE_ENV === 'production' ? CURR_URL : mongoLink, {
   useNewUrlParser: true,
