@@ -75,6 +75,9 @@ module.exports.deleteMovie = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new ValidationError(err.message);
       }
+      if (err.name === 'CastError') {
+        throw new ValidationError('Переданы некорректные данные для удаления фильма');
+      }
       next(err);
     })
     .catch(next);
