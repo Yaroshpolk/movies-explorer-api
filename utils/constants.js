@@ -1,4 +1,4 @@
-const regUrl = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+const regUrl = /https?:\/\/[\w{1,}\W{1,}]+#?\./;
 const mongoLink = 'mongodb://localhost:27017/bitfilmsdb';
 
 module.exports = {
