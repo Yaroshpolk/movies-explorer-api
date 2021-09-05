@@ -1,6 +1,7 @@
 const allowedOrigins = [
   'http://yar.movies.nomoredomains.monster/',
-  'https://yar.movies.nomoredomains.monster/'
+  'https://yar.movies.nomoredomains.monster/',
+  'http://localhost:3000/'
 ];
 const ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS';
 
