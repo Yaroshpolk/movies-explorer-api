@@ -49,7 +49,7 @@ module.exports.createMovie = (req, res, next) => {
     ))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new ValidationError('Ошибка валидации данных при создании фильма');
+        throw new ValidationError(`Ошибка валидации данных при создании фильма: ${err.message}`);
       }
       next(err);
     })

@@ -12,7 +12,7 @@ const { rateLimiter } = require('./middlewares/rateLimiter');
 
 require('dotenv').config();
 
-const { PORT = 3000, NODE_ENV, CURR_URL } = process.env;
+const { PORT = 3001, NODE_ENV, CURR_URL } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -38,4 +38,6 @@ app.use(errors());
 
 app.use((err, req, res, next) => ServerErr(err, req, res, next));
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log('app started on port 3001')
+});

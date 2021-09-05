@@ -18,7 +18,7 @@ moviesRouter.post('/',
       duration: Joi.number().integer().required(),
       year: Joi.string().min(4).max(4).required(),
       description: Joi.string().required(),
-      movieId: Joi.string().min(1).required(),
+      movieId: Joi.number().integer().min(1).required(),
     }),
   }),
   createMovie);
