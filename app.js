@@ -30,7 +30,7 @@ app.use(cors);
 app.use(requestLogger);
 app.use(rateLimiter);
 
-app.use('/', router);
+app.use('/api', router);
 
 app.use(errorLogger);
 

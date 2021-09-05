@@ -29,7 +29,7 @@ router.use('/users', auth, usersRouter);
 
 router.use('/movies', auth, moviesRouter);
 
-router.use('/api', () => {
+router.use('/', () => {
   throw new NotFoundErr('Запрашиваемый ресурс не найден');
 });
 
